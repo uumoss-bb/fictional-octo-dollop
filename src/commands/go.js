@@ -15,8 +15,7 @@ class GoCommand extends Command {
   async run() {
     console.clear()
 
-    new Date.toLocaleDateString()
-    return
+    console.log(this.config.dataDir)
 
     this.handleFlags()
 
@@ -144,19 +143,42 @@ class GoCommand extends Command {
     }
   }
 
-  async storeData(data) {
-
+  async getTodaysRecords() {
     const records = await this.getRecords()
 
-    records[new Date.toLocaleDateString()]
+    let _date = new Date,
+    today = _date.toLocaleDateString(),
+    todaysRecords = records[today]
+
+    if(todaysRecords) {
+
+      if(todaysRecords.records) {
+        return  { todaysRecords:  todaysRecords.records, today, records }
+      } else  {
+        return { todaysRecords:  [], today, records }
+      }
+
+    } else {
+      records[today] = {}
+      return  { todaysRecords:  [], today, records }
+    }
+  }
+
+  async storeData(data) {
+
+    let { todaysRecords, today, records } = await this.getTodaysRecords()
+    console.log({ todaysRecords, today, records })
+    records[today].records = [...todaysRecords, data]
+
     try {
-      await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), data)
+      await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), records)
     } catch (e) {
       this.error(e, {exit: true})
     }
   }
 
   async readyToStart(task) {
+    console.clear()
     await this.confirm("Hit any key to start " + task + "?")
   }
 
