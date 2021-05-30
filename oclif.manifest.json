@@ -1,0 +1,1 @@
+{"version":"0.0.1","commands":{"config":{"id":"config","description":"The Config command will allow you to adjust your pomordoro timer.\n","pluginName":"fictional-octo-dollop","pluginType":"core","aliases":[],"flags":{"isTesting":{"name":"isTesting","type":"boolean","char":"isTesting","hidden":false,"allowNo":false}},"args":[]}}}

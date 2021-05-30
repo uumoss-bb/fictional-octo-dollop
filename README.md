@@ -29,26 +29,22 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`src hello`](#src-hello)
+* [`src config`](#src-config)
 * [`src help [COMMAND]`](#src-help-command)
 
-## `src hello`
+## `src config`
 
-Describe the command here
+The Config command will allow you to adjust your pomordoro timer.
 
 ```
 USAGE
-  $ src hello
+  $ src config
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -i, --isTesting
 ```
 
-_See code: [src/commands/hello.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/hello.js)_
+_See code: [src/commands/config.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/config.js)_
 
 ## `src help [COMMAND]`
 
