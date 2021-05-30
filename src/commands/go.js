@@ -44,7 +44,7 @@ class GoCommand extends Command {
     
     this.log("Noice.")
 
-   this.log("all done")
+    this.log("all done")
 
     return
   }
@@ -97,7 +97,7 @@ class GoCommand extends Command {
 
   pomoDisplay() {
     console.clear()
-    this.log(chalk.cyan("Pomorodo time left: " + this.pomoTime))
+    this.log("POMODORO TIME LEFT: " + chalk.green(this.pomoTime))
   }
 
   async pomodoro() {
@@ -112,7 +112,7 @@ class GoCommand extends Command {
 
   breakDisplay() {
     console.clear()
-    this.log(chalk.cyan("Break time left: " + this.breakTime))
+    this.log("BREAK TIME LEFT: " + chalk.green(this.breakTime))
   }
 
   async takeBreak() {
@@ -167,7 +167,7 @@ class GoCommand extends Command {
   async storeData(data) {
 
     let { todaysRecords, today, records } = await this.getTodaysRecords()
-    console.log({ todaysRecords, today, records })
+
     records[today].records = [...todaysRecords, data]
 
     try {
