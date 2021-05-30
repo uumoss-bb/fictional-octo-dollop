@@ -27,10 +27,10 @@ class ConfigureCommand extends Command {
   handleFlags() {
     const { flags } = this.parse(ConfigureCommand)
     if(flags.isTesting) {
-      this.filename = "credentials_test.json"
+      this.filename = "config_test.json"
 
       let res = shell.pwd()
-      this.config.configDir = res.stdout.replace("\n", "") + "/test"
+      this.config.configDir = res.stdout.replace("\n", "") + "/src/tests"
     }
   }
 

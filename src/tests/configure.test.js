@@ -1,6 +1,6 @@
 const _ConfigureCommand = require("../../src/commands/configure"),
 sinon = require("sinon"),
-buildTestHelper = require("../testHelperClass")
+buildTestHelper = require("./testHelperClass")
 
 beforeEach(() => {
   result = [];
@@ -18,34 +18,35 @@ afterEach(() => {
 
 const TestHelper = new buildTestHelper()
   
-test("Configure command, should take in your VLP login information authenticate it and then store it localy", async function () {
+test("Configure command, should be able to take ", async function () {
   
   const ConfigureCommand = new _ConfigureCommand([ '--isTesting' ], {})
 
-
   let promptStub = sinon.stub(ConfigureCommand, 'prompt')
   promptStub
-  .withArgs('Enter your Vived email')
-  .returns("testingemail@gmail.com")
+  .withArgs('Enter in the length in minutes for your pomordoro.')
+  .returns("26")
 
   promptStub
-  .withArgs('Enter your Vived password')
-  .returns("somepasswordForTesting!2")
+  .withArgs('Enter in the length in minutes for your short break.')
+  .returns("6")
+
+  promptStub
+  .withArgs('Enter in the length in minutes for your long break.')
+  .returns("7")
+
+  promptStub
+  .withArgs('Enter in the number of pomordoros between long breaks.')
+  .returns("1")
 
   promptStub
   .callsFake(() => {throw new Error("a prompt message is incorrect")})
 
-  sinon.stub(ConfigureCommand, 'authenticate').returns("successful")
-
   await ConfigureCommand.run()
   expect(result).toStrictEqual([ 'Data saved, configuration complete.\n' ])
 
-  let localData = await TestHelper.GetCredentialsLocaly()
-  expect(localData).toStrictEqual({
-    USERNAME: 'testingemail@gmail.com',
-    PASSWORD: 'somepasswordForTesting!2'
-  })
+  let localData = await TestHelper.GetConfigLocaly()
+  expect(localData).toStrictEqual({"pomordoro":"26","shortBreak":"6","longBreak":"7","pomoFrequency":"1"})
 
-  await TestHelper.DeleteAuth()
-  await TestHelper.Delete()
+  await TestHelper.DeleteConfig()
 })
