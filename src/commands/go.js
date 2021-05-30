@@ -8,6 +8,8 @@ chalk = require('chalk');
 class GoCommand extends Command {
   configFile = 'config.json'
   pomoTime = 0
+  breakTime = 0
+
 
   async run() {
     console.clear()
@@ -20,12 +22,15 @@ class GoCommand extends Command {
 
     await this.readyToStart("Pomodoro")
 
-    while(this.pomoTime > 0) {
+    while(this.pomoTime > -1) {
       await this.pomodoro()
     }
 
     await this.readyToStart("Break")
 
+    while(this.breakTime > -1) {
+      await this.takeBreak()
+    }
 
   //  if(this.pomoTime <= 0) {
   //   // await this.confirmStorageExists(this.config.dataDir)
@@ -63,7 +68,12 @@ class GoCommand extends Command {
   async setUpConfiguration() {
     const config = await this.getConfigs()
 
-    this.pomoTime = config.pomodoro
+    // this.pomoTime = config.pomodoro
+    // this.breakTime = config.break
+
+    this.pomoTime = 1
+    this.breakTime = 1
+
   }
 
   async promptUser() {
@@ -88,13 +98,26 @@ class GoCommand extends Command {
   async pomodoro() {
     this.pomoDisplay()
 
-    if(this.pomoTime <= 0)  {
-      this.stopInterval()
-    } else {
+    if(this.pomoTime > 0)  {
       await this.waitOneMinute()
     }
 
     this.pomoTime --
+  }
+
+  breakDisplay() {
+    console.clear()
+    this.log(chalk.cyan("Break time left: " + this.breakTime))
+  }
+
+  async takeBreak() {
+    this.breakDisplay()
+
+    if(this.breakTime > 0)  {
+      await this.waitOneMinute()
+    }
+
+    this.breakTime --
   }
 
   async confirmStorageExists() {
@@ -116,7 +139,7 @@ class GoCommand extends Command {
   }
 
   async readyToStart(task) {
-    await this.confirm("Ready to start " + task + "?")
+    await this.confirm("Hit any key to start " + task + "?")
   }
 
   async prompt(msg, options) {
@@ -124,7 +147,7 @@ class GoCommand extends Command {
   }
 
   async confirm(msg) {
-    return await cli.confirm(msg)
+    return await cli.anykey(msg)
   }
 }
 
