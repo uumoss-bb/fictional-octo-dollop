@@ -36,13 +36,13 @@ class ConfigureCommand extends Command {
 
   async promptUser() {
 
-    let pomordoro = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("pomordoro")}.`, {default: `25`}),
+    let pomodoro = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("pomodoro")}.`, {default: `25`}),
     shortBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("short break")}.`, {default: `5`}),
     longBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("long break")}.`, {default: `5`}),
-    pomoFrequency = await this.prompt(`Enter in the number of pomordoros between long breaks.`, {default: `3`})
+    pomoFrequency = await this.prompt(`Enter in the number of pomodoros between long breaks.`, {default: `3`})
 
     return {
-      pomordoro: Number(pomordoro), 
+      pomodoro: Number(pomodoro), 
       shortBreak: Number(shortBreak),
       longBreak: Number(longBreak),
       pomoFrequency: Number(pomoFrequency)
@@ -72,7 +72,7 @@ class ConfigureCommand extends Command {
   }
 }
 
-ConfigureCommand.description = `The Config command will allow you to adjust your pomordoro timer.
+ConfigureCommand.description = `The Config command will allow you to adjust your pomodoro timer.
 `
 
 ConfigureCommand.flags = {

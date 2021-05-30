@@ -14,15 +14,24 @@ class GoCommand extends Command {
 
     this.handleFlags()
 
+    await this.setUpConfiguration()
+
     let { description } = await this.promptUser(this.config.dataDir)
 
-    //timer
+    while(this.pomoTime > 0) {
+      await this.pomodoro()
+    }
 
-    await this.confirmStorageExists(this.config.dataDir)
 
-    await this.storeData(data)
+  //  if(this.pomoTime <= 0) {
+  //   // await this.confirmStorageExists(this.config.dataDir)
+
+  //   // await this.storeData(data)
     
-    this.log("Data saved, configuration complete.")
+  //   this.log("Noice.")
+  //  }
+
+   this.log("all done")
 
     return
   }
@@ -36,6 +45,12 @@ class GoCommand extends Command {
       this.config.dataDir = res.stdout.replace("\n", "") + "/src/tests"
       this.config.configDir = res.stdout.replace("\n", "") + "/src/tests"
     }
+  }
+
+  async setUpConfiguration() {
+    const config = await this.getConfigs()
+
+    this.pomoTime = config.pomodoro
   }
 
   async promptUser() {
@@ -56,14 +71,30 @@ class GoCommand extends Command {
     try {
       return await fs.readJSON(path.join(this.config.configDir, this.configFile))
     } catch (e) {
-      return null
+      this.error("Configes not found. Please run: pomo configure. Then try again.")
     }
   }
 
-  async pomodoro() {
-    const config = await this.getConfigs()
-    
+  waitOneMinute() {
+    let oneMinute = 3000
+    return new Promise(resolve => setTimeout(resolve, oneMinute));
+  }
 
+  pomoDisplay() {
+    console.clear()
+    this.log(chalk.cyan("Pomorodo time left: " + this.pomoTime))
+  }
+
+  async pomodoro() {
+    this.pomoDisplay()
+
+    if(this.pomoTime <= 0)  {
+      this.stopInterval()
+    } else {
+      await this.waitOneMinute()
+    }
+
+    this.pomoTime --
   }
 
   async confirmStorageExists() {
