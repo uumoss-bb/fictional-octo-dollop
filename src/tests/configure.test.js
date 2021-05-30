@@ -24,20 +24,12 @@ test("Configure command, should be able to take ", async function () {
 
   let promptStub = sinon.stub(ConfigureCommand, 'prompt')
   promptStub
-  .withArgs('Enter in the length in minutes for your pomordoro.')
+  .withArgs('Enter in the length in minutes for your pomodoro.')
   .returns("26")
 
   promptStub
-  .withArgs('Enter in the length in minutes for your short break.')
+  .withArgs('Enter in the length in minutes for your break.')
   .returns("6")
-
-  promptStub
-  .withArgs('Enter in the length in minutes for your long break.')
-  .returns("7")
-
-  promptStub
-  .withArgs('Enter in the number of pomordoros between long breaks.')
-  .returns("1")
 
   promptStub
   .callsFake(() => {throw new Error("a prompt message is incorrect")})
@@ -46,7 +38,7 @@ test("Configure command, should be able to take ", async function () {
   expect(result).toStrictEqual([ 'Data saved, configuration complete.\n' ])
 
   let localData = await TestHelper.GetConfigLocaly()
-  expect(localData).toStrictEqual({"pomordoro":26,"shortBreak":6,"longBreak":7,"pomoFrequency":1})
+  expect(localData).toStrictEqual({"pomodoro":26,"break":6})
 
   await TestHelper.DeleteConfig()
 })

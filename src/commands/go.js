@@ -18,9 +18,13 @@ class GoCommand extends Command {
 
     let { description } = await this.promptUser(this.config.dataDir)
 
+    await this.readyToStart("Pomodoro")
+
     while(this.pomoTime > 0) {
       await this.pomodoro()
     }
+
+    await this.readyToStart("Break")
 
 
   //  if(this.pomoTime <= 0) {
@@ -47,6 +51,15 @@ class GoCommand extends Command {
     }
   }
 
+  async getConfigs() {
+
+    try {
+      return await fs.readJSON(path.join(this.config.configDir, this.configFile))
+    } catch (e) {
+      this.error(chalk.red(`Configes not found. Please run: `) + "pomo configure" +  chalk.red(`. Then try again.`))
+    }
+  }
+
   async setUpConfiguration() {
     const config = await this.getConfigs()
 
@@ -59,19 +72,6 @@ class GoCommand extends Command {
 
     return {
       description
-    }
-  }
-
-  async prompt(msg, options) {
-    return await cli.prompt(msg, options)
-  }
-
-  async getConfigs() {
-
-    try {
-      return await fs.readJSON(path.join(this.config.configDir, this.configFile))
-    } catch (e) {
-      this.error("Configes not found. Please run: pomo configure. Then try again.")
     }
   }
 
@@ -113,6 +113,18 @@ class GoCommand extends Command {
     } catch (e) {
       this.error(e, {exit: true})
     }
+  }
+
+  async readyToStart(task) {
+    await this.confirm("Ready to start " + task + "?")
+  }
+
+  async prompt(msg, options) {
+    return await cli.prompt(msg, options)
+  }
+
+  async confirm(msg) {
+    return await cli.confirm(msg)
   }
 }
 

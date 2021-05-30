@@ -36,16 +36,12 @@ class ConfigureCommand extends Command {
 
   async promptUser() {
 
-    let pomodoro = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("pomodoro")}.`, {default: `25`}),
-    shortBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("short break")}.`, {default: `5`}),
-    longBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("long break")}.`, {default: `5`}),
-    pomoFrequency = await this.prompt(`Enter in the number of pomodoros between long breaks.`, {default: `3`})
+    let pomodoro = await this.prompt(`Enter in the length in minutes for your pomodoro.`, {default: `25`}),
+    _break = await this.prompt(`Enter in the length in minutes for your break.`, {default: `5`})
 
     return {
       pomodoro: Number(pomodoro), 
-      shortBreak: Number(shortBreak),
-      longBreak: Number(longBreak),
-      pomoFrequency: Number(pomoFrequency)
+      break: Number(_break)
     }
   }
 

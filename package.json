@@ -51,7 +51,7 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
-    "test": "echo NO TESTS",
+    "test": "jest -i",
     "version": "oclif-dev readme && git add README.md"
   }
 }
