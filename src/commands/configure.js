@@ -5,7 +5,7 @@ path = require("path"),
 shell = require('shelljs'),
 chalk = require('chalk');
 
-class ConfigCommand extends Command {
+class ConfigureCommand extends Command {
   filename = 'config.json'
 
   async run() {
@@ -25,7 +25,7 @@ class ConfigCommand extends Command {
   }
 
   handleFlags() {
-    const { flags } = this.parse(ConfigCommand)
+    const { flags } = this.parse(ConfigureCommand)
     if(flags.isTesting) {
       this.filename = "credentials_test.json"
 
@@ -94,10 +94,10 @@ class ConfigCommand extends Command {
   }
 }
 
-ConfigCommand.description = `The Config command will allow you to adjust your pomordoro timer.
+ConfigureCommand.description = `The Config command will allow you to adjust your pomordoro timer.
 `
 
-ConfigCommand.flags = {
+ConfigureCommand.flags = {
   isTesting: flags.boolean({
     char: 'isTesting',
     default: false,
@@ -105,4 +105,4 @@ ConfigCommand.flags = {
   })
 }
 
-module.exports = ConfigCommand
+module.exports = ConfigureCommand
