@@ -7,6 +7,7 @@ chalk = require('chalk');
 
 class GoCommand extends Command {
   configFile = 'config.json'
+  recordsFile = 'records.json'
   pomoTime = 0
   breakTime = 0
 
@@ -14,11 +15,14 @@ class GoCommand extends Command {
   async run() {
     console.clear()
 
+    new Date.toLocaleDateString()
+    return
+
     this.handleFlags()
 
-    await this.setUpConfiguration()
+    let config =  await this.setUpConfiguration()
 
-    let { description } = await this.promptUser(this.config.dataDir)
+    let { description } = await this.promptUser()
 
     await this.readyToStart("Pomodoro")
 
@@ -32,13 +36,14 @@ class GoCommand extends Command {
       await this.takeBreak()
     }
 
-  //  if(this.pomoTime <= 0) {
-  //   // await this.confirmStorageExists(this.config.dataDir)
+    await this.confirmStorageExists()
 
-  //   // await this.storeData(data)
+    await this.storeData({
+      ...config,
+      description
+    })
     
-  //   this.log("Noice.")
-  //  }
+    this.log("Noice.")
 
    this.log("all done")
 
@@ -74,6 +79,7 @@ class GoCommand extends Command {
     this.pomoTime = 1
     this.breakTime = 1
 
+    return config
   }
 
   async promptUser() {
@@ -129,10 +135,22 @@ class GoCommand extends Command {
     }
   }
 
-  async storeData(data) {
+  async getRecords() {
 
     try {
-      await fs.writeJSON(path.join(this.config.dataDir, this.configFile), data)
+      return await fs.readJSON(path.join(this.config.dataDir, this.recordsFile))
+    } catch (e) {
+      return  {}
+    }
+  }
+
+  async storeData(data) {
+
+    const records = await this.getRecords()
+
+    records[new Date.toLocaleDateString()]
+    try {
+      await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), data)
     } catch (e) {
       this.error(e, {exit: true})
     }
