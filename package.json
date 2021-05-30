@@ -1,0 +1,57 @@
+{
+  "name": "fictional-octo-dollop",
+  "description": "This is a. CLI that implements the pomodoro technique and tracks in on your local device.",
+  "version": "0.0.1",
+  "author": "Brodie L Balser",
+  "bin": {
+    "pomo": "./bin/run"
+  },
+  "bugs": "https://github.com/websites/fictional-octo-dollop/issues",
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.2",
+    "aws-sdk": "^2.899.0",
+    "cli-ux": "^5.5.1",
+    "esm": "^3.2.25",
+    "fs-extra": "^9.1.0",
+    "inquirer": "^8.0.0",
+    "jwt-decode": "^3.1.2",
+    "node-fetch": "^2.6.1",
+    "shelljs": "^0.8.4",
+    "sinon": "^10.0.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.26.0",
+    "jest": "^26.6.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/websites/fictional-octo-dollop",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "src",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "websites/fictional-octo-dollop",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
