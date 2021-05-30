@@ -36,43 +36,21 @@ class ConfigureCommand extends Command {
 
   async promptUser() {
 
-    let pomordoro = await this.prompt('Enter in the length in minutes for your pomordoro.', {default: '25'}),
-    shortBreak = await this.prompt('Enter in the length in minutes for your short break.', {default: '5'}),
-    longBreak = await this.prompt('Enter in the length in minutes for your long break.', {default: '5'}),
-    pomoFrequency = await this.prompt('Enter in the number of pomordoros between long breaks.', {default: '3'})
+    let pomordoro = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("pomordoro")}.`, {default: `25`}),
+    shortBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("short break")}.`, {default: `5`}),
+    longBreak = await this.prompt(`Enter in the length in minutes for your ${chalk.cyan("long break")}.`, {default: `5`}),
+    pomoFrequency = await this.prompt(`Enter in the number of pomordoros between long breaks.`, {default: `3`})
 
     return {
-      pomordoro, 
-      shortBreak,
-      longBreak,
-      pomoFrequency
+      pomordoro: Number(pomordoro), 
+      shortBreak: Number(shortBreak),
+      longBreak: Number(longBreak),
+      pomoFrequency: Number(pomoFrequency)
     }
   }
 
   async prompt(msg, options) {
     return await cli.prompt(msg, options)
-  }
-
-  async getCredentials() {
-
-    try {
-      return await fs.readJSON(path.join(this.config.configDir, this.filename))
-    } catch (e) {
-      return null
-    }
-  }
-
-  async authenticate(email, password) {
-    cli.action.start('Authenticating')
-
-    try {
-      await authenticateUser(email, password)
-      cli.action.stop(chalk.green("SUCCESSFULL"))
-    } catch (e) {
-      cli.action.stop(chalk.red("FAILED"))
-      this.error("We could not authenticate your information, please try again.\n")
-      return
-    }
   }
 
   async confirmStorageExists() {

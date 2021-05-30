@@ -46,7 +46,7 @@ test("Configure command, should be able to take ", async function () {
   expect(result).toStrictEqual([ 'Data saved, configuration complete.\n' ])
 
   let localData = await TestHelper.GetConfigLocaly()
-  expect(localData).toStrictEqual({"pomordoro":"26","shortBreak":"6","longBreak":"7","pomoFrequency":"1"})
+  expect(localData).toStrictEqual({"pomordoro":26,"shortBreak":6,"longBreak":7,"pomoFrequency":1})
 
   await TestHelper.DeleteConfig()
 })

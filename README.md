@@ -29,22 +29,37 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`src config`](#src-config)
+* [`src configure`](#src-configure)
+* [`src go`](#src-go)
 * [`src help [COMMAND]`](#src-help-command)
 
-## `src config`
+## `src configure`
 
 The Config command will allow you to adjust your pomordoro timer.
 
 ```
 USAGE
-  $ src config
+  $ src configure
 
 OPTIONS
   -i, --isTesting
 ```
 
-_See code: [src/commands/config.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/config.js)_
+_See code: [src/commands/configure.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/configure.js)_
+
+## `src go`
+
+The Config command will allow you to adjust your pomordoro timer.
+
+```
+USAGE
+  $ src go
+
+OPTIONS
+  -i, --isTesting
+```
+
+_See code: [src/commands/go.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/go.js)_
 
 ## `src help [COMMAND]`
 
