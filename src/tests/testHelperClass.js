@@ -42,7 +42,7 @@ class buildTestHelper {
 
   async GetDataLocaly(dataId) {
     let file = await fs.readJSON(path.join(this.dataDir, "records_test.json"))
-    return file[dataId]
+    return file
   }
 
   async GetConfigLocaly() {

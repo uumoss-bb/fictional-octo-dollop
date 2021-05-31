@@ -50,11 +50,13 @@ class GoCommand extends Command {
   handleFlags() {
     const { flags } = this.parse(GoCommand)
     if(flags.isTesting) {
+
       this.configFile = "config_test.json"
+      this.recordsFile = 'records_test.json'
 
       let res = shell.pwd()
-      this.config.dataDir = res.stdout.replace("\n", "") + "/src/tests"
-      this.config.configDir = res.stdout.replace("\n", "") + "/src/tests"
+      this.config.dataDir = res.stdout + "/src/tests"
+      this.config.configDir = res.stdout + "/src/tests"
     }
   }
 
@@ -70,11 +72,8 @@ class GoCommand extends Command {
   async setUpConfiguration() {
     const config = await this.getConfigs()
 
-    // this.pomoTime = config.pomodoro
-    // this.breakTime = config.break
-
-    this.pomoTime = 1
-    this.breakTime = 1
+    this.pomoTime = config.pomodoro
+    this.breakTime = config.break
 
     return config
   }
@@ -89,7 +88,7 @@ class GoCommand extends Command {
   }
 
   waitOneMinute() {
-    let oneMinute = 3000
+    let oneMinute = 60000
     return new Promise(resolve => setTimeout(resolve, oneMinute));
   }
 
@@ -134,7 +133,6 @@ class GoCommand extends Command {
   }
 
   async getRecords() {
-
     try {
       return await fs.readJSON(path.join(this.config.dataDir, this.recordsFile))
     } catch (e) {
