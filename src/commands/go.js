@@ -35,6 +35,8 @@ class GoCommand extends Command {
       await this.takeBreak()
     }
 
+    console.clear()
+    
     await this.confirmStorageExists()
 
     await this.storeData({
@@ -43,8 +45,6 @@ class GoCommand extends Command {
     })
     
     this.log("Noice.")
-
-    this.log("all done")
 
     return
   }
@@ -172,6 +172,7 @@ class GoCommand extends Command {
 
     try {
       await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), records)
+      this.log(chalk.green("CONGRADULATIONS YOU'V COMPLETED " + records[today].records.length + " POMODOROS TODAY"))
     } catch (e) {
       this.error(e, {exit: true})
     }
