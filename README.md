@@ -32,10 +32,11 @@ USAGE
 * [`src configure`](#src-configure)
 * [`src go`](#src-go)
 * [`src help [COMMAND]`](#src-help-command)
+* [`src view`](#src-view)
 
 ## `src configure`
 
-The Config command will allow you to adjust your pomordoro timer.
+The Config command will allow you to adjust your pomodoro timer.
 
 ```
 USAGE
@@ -77,4 +78,18 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
+## `src view`
+
+The Config command will allow you to adjust your pomordoro timer.
+
+```
+USAGE
+  $ src view
+
+OPTIONS
+  -i, --isTesting
+```
+
+_See code: [src/commands/view.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/view.js)_
 <!-- commandsstop -->
