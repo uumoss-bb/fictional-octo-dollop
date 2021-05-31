@@ -19,30 +19,84 @@ afterEach(() => {
 
 const TestHelper = new buildTestHelper()
   
-// test("View command, should be able to take ", async function () {
+test("View command, view general overview ", async function () {
+
+  await TestHelper.CreateConfig()
+  await TestHelper.CreateRecords()
   
-//   const ViewCommand = new _ViewCommand([ '--isTesting' ], {})
+  const ViewCommand = new _ViewCommand([ '--isTesting' ], {})
 
-//   let promptStub = sinon.stub(ViewCommand, 'prompt')
-//   promptStub
-//   .withArgs('Enter in the length in minutes for your pomodoro.')
-//   .returns("26")
+  let promptStub = sinon.stub(ViewCommand, 'inquir')
+  promptStub
+  .withArgs([
+    {
+      type: 'list',
+      name: 'selectedView',
+      message: 'Id like to view: ',
+      choices: ["General Overview", "Descriptions of a day"],
+    }
+  ])
+  .returns({
+    selectedView: "General Overview"
+  })
 
-//   promptStub
-//   .withArgs('Enter in the length in minutes for your break.')
-//   .returns("6")
+  promptStub
+  .callsFake(() => {throw new Error("a prompt message is incorrect")})
 
-//   promptStub
-//   .callsFake(() => {throw new Error("a prompt message is incorrect")})
+  await ViewCommand.run()
+  expect(result).toStrictEqual([ '\u001b[32mGeneral Overview\u001b[39m\n' ])
 
-//   await ViewCommand.run()
-//   expect(result).toStrictEqual([ 'Data saved, configuration complete.\n' ])
+  await TestHelper.DeleteConfig()
+  await TestHelper.DeleteRecords()
+})
 
-//   let localData = await TestHelper.GetConfigLocaly()
-//   expect(localData).toStrictEqual({"pomodoro":26,"break":6})
+test("View command, view descriptions of a day ", async function () {
 
-//   await TestHelper.DeleteConfig()
-// })
+  await TestHelper.CreateConfig()
+  await TestHelper.CreateRecords()
+  
+  const ViewCommand = new _ViewCommand([ '--isTesting' ], {})
+
+  let promptStub = sinon.stub(ViewCommand, 'inquir')
+  promptStub
+  .withArgs([
+    {
+      type: 'list',
+      name: 'selectedView',
+      message: 'Id like to view: ',
+      choices: ["General Overview", "Descriptions of a day"],
+    }
+  ])
+  .returns({
+    selectedView: "Descriptions of a day"
+  })
+
+  promptStub
+  .withArgs([
+    {
+      type: 'list',
+      name: 'selectedDay',
+      message: 'Select day to view: ',
+      choices: ["5/31/2021"],
+    }
+  ])
+  .returns({
+    selectedDay: "5/31/2021"
+  })
+
+  promptStub
+  .callsFake(() => {throw new Error("a prompt message is incorrect")})
+
+  await ViewCommand.run()
+  expect(result).toStrictEqual([
+    '\u001b[32mWhat I did on 5/31/2021:\u001b[39m\n',
+    '- Just doing my BEST!\n',
+    '- Just doing my BEST!\n'
+  ])
+
+  await TestHelper.DeleteConfig()
+  await TestHelper.DeleteRecords()
+})
 
 test("Test organizeRecords", () => {
   const ViewCommand = new _ViewCommand([ '--isTesting' ], {})

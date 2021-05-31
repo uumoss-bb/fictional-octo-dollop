@@ -9,19 +9,34 @@ class buildTestHelper {
     this.dataDir = res.stdout.replace("\n", "") + "/src/tests"
   }
 
-  async CreateAuth() {
-    await fs.writeJSON(path.join(this.dataDir, "config_test.json"), {"USERNAME": "testingemail@gmail.com", 'PASSWORD': "somepasswordForTesting!2"})
+  async CreateConfig() {
+    await fs.writeJSON(path.join(this.dataDir, "config_test.json"), {"pomodoro":25,"break":5})
   }
 
   async DeleteConfig() {
     await fs.remove(path.join(this.dataDir, "config_test.json"))
   }
 
-  async Create() {
-    await fs.writeJSON(path.join(this.dataDir, "records_test.json"), {"test_id":{"SK":"app","PK":"test_id","description":"some app","versions":["0.1.0"],"title":"app1"}})
+  async CreateRecords() {
+    await fs.writeJSON(path.join(this.dataDir, "records_test.json"), { 
+      "5/31/2021": {
+        "records": [
+          {
+            "pomodoro": 25,
+            "break": 5,
+            "description": "Just doing my BEST!"
+          },
+          {
+            "pomodoro": 25,
+            "break": 5,
+            "description": "Just doing my BEST!"
+          }
+        ]
+      }
+    })
   }
 
-  async Delete() {
+  async DeleteRecords() {
     await fs.remove(path.join(this.dataDir, "records_test.json"))
   }
 

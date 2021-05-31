@@ -36,6 +36,7 @@ class ViewCommand extends Command {
     const { flags } = this.parse(ViewCommand)
     if(flags.isTesting) {
       this.configFile = "config_test.json"
+      this.recordsFile = 'records_test.json'
 
       let res = shell.pwd()
       this.config.dataDir = res.stdout.replace("\n", "") + "/src/tests"
@@ -84,7 +85,7 @@ class ViewCommand extends Command {
 
     for (let key_index = 0; key_index < Keys.length; key_index++) {
       const key = Keys[key_index];
-      console.log(key, organizedRecords)
+
       for (let value_index = 0; value_index < Values.length; value_index++) {
         if(key_index === value_index) {
           const value = Values[value_index],
@@ -112,7 +113,6 @@ class ViewCommand extends Command {
   }
 
   displayDescriptions(records, todaysDate) {
-
     let todaysRecords =  records[todaysDate].records,
     descriptions = todaysRecords.map(record => record.description)
 
@@ -154,12 +154,6 @@ class ViewCommand extends Command {
     } else {
 
       return res.selectedView
-    }
-
-
-
-    return {
-      description
     }
   }
 }
