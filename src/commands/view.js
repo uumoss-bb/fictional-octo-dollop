@@ -1,4 +1,4 @@
-const { cli } = require("cli-ux"),
+const inquirer = require("inquirer"),
 { Command, flags } = require('@oclif/command'),
 fs = require("fs-extra"),
 path = require("path"),
@@ -20,7 +20,13 @@ class ViewCommand extends Command {
     const records = await this.getRecords()
 
     if(records) {
-      this.displayRecords(records)
+      let userInfo = this.promptUser(records)
+
+      if(userInfo === "General Overview") {
+        this.displayOverview(records)
+      } else {
+        this.displayDescriptions(records, userInfo)
+      }
     } else {
       this.log(chalk.red("no records found."))
     }
@@ -57,7 +63,7 @@ class ViewCommand extends Command {
     return result
   }
 
-  displayRecords(records) {
+  displayOverview(records) {
     let organizedRecords = {}
     let Keys = Object.keys(records),
     Values = Object.values(records)
@@ -79,6 +85,46 @@ class ViewCommand extends Command {
     }
 
     console.table(organizedRecords)
+  }
+
+  async inquir(options) {
+    return await inquirer.prompt(options)
+  }
+
+  async promptUser(records) {
+
+    let res = await this.inquir([
+      {
+        type: 'list',
+        name: 'selectedView',
+        message: 'Id like to view: ',
+        choices: ["General Overview", "Descriptions of a day"],
+      }
+    ])
+
+    if(res.selectedView === "Descriptions of a day") {
+
+      let days =  Object.keys(records)
+      res = await this.inquir([
+        {
+          type: 'list',
+          name: 'selectedDay',
+          message: 'Select day to view: ',
+          choices: days,
+        }
+      ])
+
+      return res.selectedDay
+    } else {
+
+      return res.selectedView
+    }
+
+
+
+    return {
+      description
+    }
   }
 }
 
