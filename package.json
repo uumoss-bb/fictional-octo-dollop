@@ -42,7 +42,7 @@
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
-    "bin": "src",
+    "bin": "pomo",
     "plugins": [
       "@oclif/plugin-help"
     ]

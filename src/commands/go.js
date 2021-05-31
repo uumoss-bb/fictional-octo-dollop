@@ -190,8 +190,7 @@ class GoCommand extends Command {
   }
 }
 
-GoCommand.description = `The Config command will allow you to adjust your pomordoro timer.
-`
+GoCommand.description = `The Go command starts your pomodoro and your break right after it.`
 
 GoCommand.flags = {
   isTesting: flags.boolean({

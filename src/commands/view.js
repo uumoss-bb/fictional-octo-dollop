@@ -140,8 +140,7 @@ class ViewCommand extends Command {
   }
 }
 
-ViewCommand.description = `The Config command will allow you to adjust your pomordoro timer.
-`
+ViewCommand.description = `The View command allows you to view the saved records of your past pomodoro's.`
 
 ViewCommand.flags = {
   isTesting: flags.boolean({

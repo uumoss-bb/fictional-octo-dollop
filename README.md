@@ -50,7 +50,7 @@ _See code: [src/commands/configure.js](https://github.com/websites/fictional-oct
 
 ## `src go`
 
-The Config command will allow you to adjust your pomordoro timer.
+The Go command starts your pomodoro and your break right after it.
 
 ```
 USAGE
@@ -81,7 +81,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2
 
 ## `src view`
 
-The Config command will allow you to adjust your pomordoro timer.
+The View command allows you to view the saved records of your past pomodoro's.
 
 ```
 USAGE
