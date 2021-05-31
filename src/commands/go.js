@@ -24,7 +24,7 @@ class GoCommand extends Command {
     await this.readyToStart("Pomodoro")
 
     while(this.pomoTime > -1) {
-      await this.pomodoro()
+      await this.pomodoro(description)
     }
 
     await this.readyToStart("Break")
@@ -93,13 +93,14 @@ class GoCommand extends Command {
     return new Promise(resolve => setTimeout(resolve, oneMinute));
   }
 
-  pomoDisplay() {
+  pomoDisplay(description) {
     console.clear()
-    this.log("POMODORO TIME LEFT: " + chalk.green(this.pomoTime))
+    this.log("Current Task: " + chalk.yellow(description))
+    this.log("POMODORO TIME LEFT: " + chalk.yellow(this.pomoTime))
   }
 
-  async pomodoro() {
-    this.pomoDisplay()
+  async pomodoro(description) {
+    this.pomoDisplay(description)
 
     if(this.pomoTime > 0)  {
       await this.waitOneMinute()
@@ -110,7 +111,7 @@ class GoCommand extends Command {
 
   breakDisplay() {
     console.clear()
-    this.log("BREAK TIME LEFT: " + chalk.green(this.breakTime))
+    this.log("BREAK TIME LEFT: " + chalk.yellow(this.breakTime))
   }
 
   async takeBreak() {
@@ -177,7 +178,6 @@ class GoCommand extends Command {
   }
 
   async readyToStart(task) {
-    console.clear()
     await this.confirm("Hit any key to start " + task + "?")
   }
 

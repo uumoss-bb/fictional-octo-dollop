@@ -1,4 +1,4 @@
-const _ConfigureCommand = require("../../src/commands/configure"),
+const _GoCommand = require("../../src/commands/Go"),
 sinon = require("sinon"),
 buildTestHelper = require("./testHelperClass")
 
@@ -18,11 +18,11 @@ afterEach(() => {
 
 const TestHelper = new buildTestHelper()
   
-test("Configure command, should be able to take pomorodor setting and save it.", async function () {
+test("Go command, should be able to take ", async function () {
   
-  const ConfigureCommand = new _ConfigureCommand([ '--isTesting' ], {})
+  const GoCommand = new _GoCommand([ '--isTesting' ], {})
 
-  let promptStub = sinon.stub(ConfigureCommand, 'prompt')
+  let promptStub = sinon.stub(GoCommand, 'prompt')
   promptStub
   .withArgs('Enter in the length in minutes for your pomodoro.')
   .returns("26")
@@ -34,7 +34,7 @@ test("Configure command, should be able to take pomorodor setting and save it.",
   promptStub
   .callsFake(() => {throw new Error("a prompt message is incorrect")})
 
-  await ConfigureCommand.run()
+  await GoCommand.run()
   expect(result).toStrictEqual([ 'Data saved, configuration complete.\n' ])
 
   let localData = await TestHelper.GetConfigLocaly()
