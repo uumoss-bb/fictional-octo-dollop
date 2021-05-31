@@ -13,8 +13,6 @@ class ViewCommand extends Command {
   async run() {
     console.clear()
 
-    console.log(this.config.dataDir)
-
     this.handleFlags()
 
     const records = await this.getRecords()

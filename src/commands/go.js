@@ -15,8 +15,6 @@ class GoCommand extends Command {
   async run() {
     console.clear()
 
-    console.log(this.config.dataDir)
-
     this.handleFlags()
 
     let config =  await this.setUpConfiguration()
@@ -36,7 +34,7 @@ class GoCommand extends Command {
     }
 
     console.clear()
-    
+
     await this.confirmStorageExists()
 
     await this.storeData({
