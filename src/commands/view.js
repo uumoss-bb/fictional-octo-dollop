@@ -61,6 +61,22 @@ class ViewCommand extends Command {
     return result
   }
 
+  calculateMinutes(min) {
+    let remainingMin = min,
+    hours = 0
+
+    if(min < 60) {
+      return `${min} min`
+    }
+
+    while(remainingMin >= 60) {
+      hours ++
+      remainingMin -= 60
+    }
+
+    return `${hours}.${remainingMin} hrs`
+  }
+
   organizeRecords(records) {
     let organizedRecords = {}
     let Keys = Object.keys(records),
@@ -79,7 +95,7 @@ class ViewCommand extends Command {
             totalPomodoros: 0
           })
 
-          organizedRecords[key] = `Total Pomodoros: ${collectedData.totalPomodoros} | Total Time: ${collectedData.totalTime} | Total Break Time: ${collectedData.breakTime}`
+          organizedRecords[key] = `Total Pomodoros: ${collectedData.totalPomodoros} | Total Time: ${this.calculateMinutes(collectedData.totalTime)} | Total Break Time: ${this.calculateMinutes(collectedData.breakTime)}`
         }
       }
     }
