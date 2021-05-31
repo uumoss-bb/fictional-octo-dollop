@@ -20,7 +20,7 @@ class ViewCommand extends Command {
     const records = await this.getRecords()
 
     if(records) {
-      let userInfo = this.promptUser(records)
+      let userInfo = await this.promptUser(records)
 
       if(userInfo === "General Overview") {
         this.displayOverview(records)
@@ -84,7 +84,21 @@ class ViewCommand extends Command {
       }
     }
 
+    console.clear()
+    this.log(chalk.green("General Overview"))
     console.table(organizedRecords)
+  }
+
+  displayDescriptions(records, todaysDate) {
+
+    let todaysRecords =  records[todaysDate].records,
+    descriptions = todaysRecords.map(record => record.description)
+
+    console.clear()
+    this.log(chalk.green(`What I did on ${todaysDate}:`))
+    descriptions.forEach(desc => {
+      this.log(`- ${desc}`)
+    })
   }
 
   async inquir(options) {
