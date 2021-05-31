@@ -10,7 +10,7 @@ class ViewCommand extends Command {
   recordsFile = 'records.json'
 
 
-  async run() {
+  async run() {    
     console.clear()
 
     this.handleFlags()
@@ -61,26 +61,34 @@ class ViewCommand extends Command {
     return result
   }
 
-  displayOverview(records) {
+  organizeRecords(records) {
     let organizedRecords = {}
     let Keys = Object.keys(records),
     Values = Object.values(records)
 
     for (let key_index = 0; key_index < Keys.length; key_index++) {
       const key = Keys[key_index];
+      console.log(key, organizedRecords)
+      for (let value_index = 0; value_index < Values.length; value_index++) {
+        if(key_index === value_index) {
+          const value = Values[value_index],
+          records = value.records,
+          collectedData = records.reduce(this.collecteData, {
+            totalTime: 0,
+            breakTime: 0,
+            totalPomodoros: 0
+          })
 
-      for (let key_index = 0; key_index < Values.length; key_index++) {
-        const value = Values[key_index],
-        records = value.records,
-        collectedData = records.reduce(this.collecteData, {
-          totalTime: 0,
-          breakTime: 0,
-          totalPomodoros: 0
-        })
-
-        organizedRecords[key] = `Total Pomodoros: ${collectedData.totalPomodoros} | Total Time: ${collectedData.totalTime} | Total Break Time: ${collectedData.breakTime}`
+          organizedRecords[key] = `Total Pomodoros: ${collectedData.totalPomodoros} | Total Time: ${collectedData.totalTime} | Total Break Time: ${collectedData.breakTime}`
+        }
       }
     }
+
+    return organizedRecords
+  }
+
+  displayOverview(records) {
+    let organizedRecords = this.organizeRecords(records)
 
     console.clear()
     this.log(chalk.green("General Overview"))
