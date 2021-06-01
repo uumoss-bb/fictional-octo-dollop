@@ -17,30 +17,45 @@ This is a. CLI that implements the pomodoro technique and tracks in on your loca
 <!-- usage -->
 ```sh-session
 $ npm install -g fictional-octo-dollop
-$ src COMMAND
+$ pomo COMMAND
 running command...
-$ src (-v|--version|version)
+$ pomo (-v|--version|version)
 fictional-octo-dollop/0.0.1 darwin-x64 node-v12.16.3
-$ src --help [COMMAND]
+$ pomo --help [COMMAND]
 USAGE
-  $ src COMMAND
+  $ pomo COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`src configure`](#src-configure)
-* [`src go`](#src-go)
-* [`src help [COMMAND]`](#src-help-command)
-* [`src view`](#src-view)
+* [`pomo break`](#pomo-break)
+* [`pomo configure`](#pomo-configure)
+* [`pomo go`](#pomo-go)
+* [`pomo help [COMMAND]`](#pomo-help-command)
+* [`pomo view`](#pomo-view)
 
-## `src configure`
+## `pomo break`
+
+The Go command starts your pomodoro and your break right after it.
+
+```
+USAGE
+  $ pomo break
+
+OPTIONS
+  -i, --isTesting
+```
+
+_See code: [src/commands/break.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/break.js)_
+
+## `pomo configure`
 
 The Config command will allow you to adjust your pomodoro timer.
 
 ```
 USAGE
-  $ src configure
+  $ pomo configure
 
 OPTIONS
   -i, --isTesting
@@ -48,13 +63,13 @@ OPTIONS
 
 _See code: [src/commands/configure.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/configure.js)_
 
-## `src go`
+## `pomo go`
 
 The Go command starts your pomodoro and your break right after it.
 
 ```
 USAGE
-  $ src go
+  $ pomo go
 
 OPTIONS
   -i, --isTesting
@@ -62,13 +77,13 @@ OPTIONS
 
 _See code: [src/commands/go.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/go.js)_
 
-## `src help [COMMAND]`
+## `pomo help [COMMAND]`
 
-display help for src
+display help for pomo
 
 ```
 USAGE
-  $ src help [COMMAND]
+  $ pomo help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -79,13 +94,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `src view`
+## `pomo view`
 
 The View command allows you to view the saved records of your past pomodoro's.
 
 ```
 USAGE
-  $ src view
+  $ pomo view
 
 OPTIONS
   -i, --isTesting

@@ -5,11 +5,10 @@ path = require("path"),
 shell = require('shelljs'),
 chalk = require('chalk');
 
-class GoCommand extends Command {
+class BreakCommand extends Command {
   configFile = 'config.json'
   recordsFile = 'records.json'
-  pomoTime = 0
-  breakTime = 0
+  breakTaken = 0
 
 
   async run() {
@@ -17,25 +16,10 @@ class GoCommand extends Command {
 
     this.handleFlags()
 
-    let config =  await this.setUpConfiguration()
-
-    let { description } = await this.promptUser()
-
     await this.readyToStart("Pomodoro")
 
-    while(this.pomoTime > -1) {
-      await this.pomodoro(description)
-    }
+    await this.takeBreak()
 
-    await this.alarm()
-
-    await this.readyToStart("Break")
-
-    while(this.breakTime > -1) {
-      await this.takeBreak()
-    }
-
-    await this.alarm()
     console.clear()
 
     await this.confirmStorageExists()
@@ -51,7 +35,7 @@ class GoCommand extends Command {
   }
 
   handleFlags() {
-    const { flags } = this.parse(GoCommand)
+    const { flags } = this.parse(BreakCommand)
     if(flags.isTesting) {
 
       this.configFile = "config_test.json"
@@ -61,10 +45,6 @@ class GoCommand extends Command {
       this.config.dataDir = res.stdout + "/src/tests"
       this.config.configDir = res.stdout + "/src/tests"
     }
-  }
-
-  async alarm() {
-    await shell.exec("say done")
   }
 
   async getConfigs() {
@@ -94,30 +74,16 @@ class GoCommand extends Command {
     }
   }
 
-  waitOneMinute() {
+  interval(logic) {
     let oneMinute = 60000
-    return new Promise(resolve => setTimeout(resolve, oneMinute));
-  }
-
-  pomoDisplay(description) {
-    console.clear()
-    this.log("Current Task: " + chalk.yellow(description))
-    this.log("POMODORO TIME LEFT: " + chalk.yellow(this.pomoTime))
-  }
-
-  async pomodoro(description) {
-    this.pomoDisplay(description)
-
-    if(this.pomoTime > 0)  {
-      await this.waitOneMinute()
-    }
-
-    this.pomoTime --
+    return setInterval(logic, oneMinute);
   }
 
   breakDisplay() {
     console.clear()
     this.log("BREAK TIME LEFT: " + chalk.yellow(this.breakTime))
+
+    // echo -e '\e[2A\e[Knew line'
   }
 
   async takeBreak() {
@@ -195,9 +161,9 @@ class GoCommand extends Command {
   }
 }
 
-GoCommand.description = `The Go command starts your pomodoro and your break right after it.`
+BreakCommand.description = `The Go command starts your pomodoro and your break right after it.`
 
-GoCommand.flags = {
+BreakCommand.flags = {
   isTesting: flags.boolean({
     char: 'isTesting',
     default: false,
@@ -205,4 +171,4 @@ GoCommand.flags = {
   })
 }
 
-module.exports = GoCommand
+module.exports = BreakCommand
