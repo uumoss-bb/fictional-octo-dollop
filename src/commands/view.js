@@ -56,7 +56,7 @@ class ViewCommand extends Command {
   collecteData(result, record) {
 
     result.totalPomodoros += 1  
-    result.totalTime += record.pomodoro
+    result.totalTime += record.pomodoro + record.break
     result.breakTime += record.break
 
     return result

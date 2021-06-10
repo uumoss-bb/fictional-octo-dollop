@@ -11,7 +11,8 @@ class GoCommand extends Command {
   pomoTime = 0
   breakTime = 0
 
-
+  // /System/Library/Sounds/
+  
   async run() {
     console.clear()
 

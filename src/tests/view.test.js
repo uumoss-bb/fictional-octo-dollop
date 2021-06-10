@@ -148,5 +148,5 @@ test("Test organizeRecords", () => {
   }
 
   const res = ViewCommand.organizeRecords(records)
-  expect(res).toStrictEqual({"5/30/2021": "Total Pomodoros: 5 | Total Time: 2.5 hrs | Total Break Time: 25 min", "5/31/2021": "Total Pomodoros: 2 | Total Time: 50 min | Total Break Time: 10 min"})
+  expect(res).toStrictEqual({"5/30/2021": "Total Pomodoros: 5 | Total Time: 2.30 hrs | Total Break Time: 25 min", "5/31/2021": "Total Pomodoros: 2 | Total Time: 1.0 hrs | Total Break Time: 10 min"})
 })
