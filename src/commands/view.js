@@ -12,7 +12,7 @@ class ViewCommand extends Command {
 
   async run() {    
     console.clear()
-
+    console.log(this.config.dataDir)
     this.handleFlags()
 
     const records = await this.getRecords()
@@ -22,10 +22,14 @@ class ViewCommand extends Command {
 
       if(userInfo === "General Overview") {
         this.displayOverview(records)
-      } else {
+      } else if("Todays OverView") {
+        this.displayToday(records)
+      } 
+      else {
         this.displayDescriptions(records, userInfo)
       }
-    } else {
+    }
+    else {
       this.log(chalk.red("no records found."))
     }
 
@@ -112,12 +116,30 @@ class ViewCommand extends Command {
     console.table(organizedRecords)
   }
 
-  displayDescriptions(records, todaysDate) {
-    let todaysRecords =  records[todaysDate].records,
+  displayDescriptions(records, Date) {
+    let todaysRecords =  records[Date].records,
     descriptions = todaysRecords.map(record => record.description)
 
     console.clear()
-    this.log(chalk.green(`What I did on ${todaysDate}:`))
+    this.log(chalk.green(`What I did on ${Date}:`))
+    descriptions.forEach(desc => {
+      this.log(`- ${desc}`)
+    })
+  }
+
+  displayToday(records) {
+    let todaysRecords =  records[new Date().toLocaleDateString()].records,
+    descriptions = todaysRecords.map(record => record.description),
+    collectedData = todaysRecords.reduce(this.collecteData, {
+      totalTime: 0,
+      breakTime: 0,
+      totalPomodoros: 0
+    }),
+    todaysTimes = chalk.cyan(`Total Pomodoros: ${collectedData.totalPomodoros} | Total Time: ${this.calculateMinutes(collectedData.totalTime)} | Total Break Time: ${this.calculateMinutes(collectedData.breakTime)}`)
+    
+    console.clear()
+    this.log(chalk.green("Todays Work:"))
+    this.log(todaysTimes)
     descriptions.forEach(desc => {
       this.log(`- ${desc}`)
     })
@@ -134,7 +156,7 @@ class ViewCommand extends Command {
         type: 'list',
         name: 'selectedView',
         message: 'Id like to view: ',
-        choices: ["General Overview", "Descriptions of a day"],
+        choices: ["Todays OverView", "General Overview", "Descriptions of a day"],
       }
     ])
 
