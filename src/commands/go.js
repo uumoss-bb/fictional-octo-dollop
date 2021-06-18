@@ -16,6 +16,8 @@ class GoCommand extends Command {
   
   async run() {
     console.clear()
+    
+    this.todaysDate = new Date
 
     this.handleFlags()
 
@@ -63,6 +65,7 @@ class GoCommand extends Command {
       let res = shell.pwd()
       this.config.dataDir = res.stdout + "/src/tests"
       this.config.configDir = res.stdout + "/src/tests"
+      this.todaysDate = new Date("5/31/2021")
     }
   }
 
@@ -172,7 +175,7 @@ class GoCommand extends Command {
   async getTodaysRecords() {
     const records = await this.getRecords()
 
-    let _date = new Date,
+    let _date = this.todaysDate,
     today = _date.toLocaleDateString(),
     todaysRecords = records[today]
 

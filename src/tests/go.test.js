@@ -54,6 +54,9 @@ test("Go command, should be able to take ", async function () {
   .withArgs('Enter basic description of the tasks at hand.')
   .returns("test description")
 
+  .withArgs('Silent Mode?.')
+  .returns("y")
+
   promptStub
   .callsFake(() => {throw new Error("a prompt message is incorrect")})
 
