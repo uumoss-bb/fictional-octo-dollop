@@ -3,7 +3,8 @@ const { cli } = require("cli-ux"),
 fs = require("fs-extra"),
 path = require("path"),
 shell = require('shelljs'),
-chalk = require('chalk');
+chalk = require('chalk'),
+Sound = require('play-sound');
 
 class GoCommand extends Command {
   configFile = 'config.json'
@@ -20,7 +21,8 @@ class GoCommand extends Command {
 
     let config =  await this.setUpConfiguration()
 
-    let { description } = await this.promptUser()
+    let { description, silentMode } = await this.promptUser()
+    this.silentMode = silentMode
 
     await this.readyToStart("Pomodoro")
 
@@ -65,7 +67,17 @@ class GoCommand extends Command {
   }
 
   async alarm() {
-    await shell.exec("say done")
+
+    if(!this.silentMode) {
+      await new Promise(res => {
+        var _sound = new Sound().play('src/sounds/mixkit-scanning-sci-fi-alarm-905.wav' )
+    
+        setTimeout(function () {
+          _sound.kill(); // pause the music after five seconds
+          res()
+        }, 3000);
+      })
+    }
   }
 
   async getConfigs() {
@@ -88,10 +100,19 @@ class GoCommand extends Command {
 
   async promptUser() {
 
+    let silentMode = await this.prompt('Silent Mode?.', {default: "No"})
+
     let description = await this.prompt('Enter basic description of the tasks at hand.', {default: 'Just doing my BEST!'})
 
+    if(silentMode.toLowerCase() === "yes" || silentMode.toLowerCase() === "y") {
+      silentMode = true
+    } else {
+      silentMode = false
+    }
+
     return {
-      description
+      description,
+      silentMode
     }
   }
 
