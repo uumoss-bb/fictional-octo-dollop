@@ -12,20 +12,21 @@ class ViewCommand extends Command {
 
   async run() {    
     console.clear()
-    console.log(this.config.dataDir)
+    
+    this.todaysDate = new Date
+
     this.handleFlags()
 
     const records = await this.getRecords()
 
     if(records) {
       let userInfo = await this.promptUser(records)
-
+      console.log(userInfo)
       if(userInfo === "General Overview") {
         this.displayOverview(records)
-      } else if("Todays OverView") {
+      } else if(userInfo === "Todays OverView") {
         this.displayToday(records)
-      } 
-      else {
+      } else{
         this.displayDescriptions(records, userInfo)
       }
     }
@@ -45,6 +46,7 @@ class ViewCommand extends Command {
       let res = shell.pwd()
       this.config.dataDir = res.stdout.replace("\n", "") + "/src/tests"
       this.config.configDir = res.stdout.replace("\n", "") + "/src/tests"
+      this.todaysDate = new Date("5/31/2021")
     }
   }
 
@@ -117,6 +119,7 @@ class ViewCommand extends Command {
   }
 
   displayDescriptions(records, Date) {
+    console.log("descriptions")
     let todaysRecords =  records[Date].records,
     descriptions = todaysRecords.map(record => record.description)
 
@@ -128,7 +131,8 @@ class ViewCommand extends Command {
   }
 
   displayToday(records) {
-    let todaysRecords =  records[new Date().toLocaleDateString()].records,
+    console.log("today")
+    let todaysRecords =  records[this.todaysDate.toLocaleDateString()].records,
     descriptions = todaysRecords.map(record => record.description),
     collectedData = todaysRecords.reduce(this.collecteData, {
       totalTime: 0,
