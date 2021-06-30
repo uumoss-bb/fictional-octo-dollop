@@ -16,9 +16,9 @@ class GoCommand extends Command {
   
   async run() {
     console.clear()
-    shell.exec("echo $0")
+
     this.setUp()
-    await this.alarm()
+
     this.handleFlags()
 
     let config =  await this.setUpConfiguration()
@@ -34,6 +34,13 @@ class GoCommand extends Command {
 
     await this.alarm()
 
+    await this.confirmStorageExists()
+
+    await this.storeData({
+      ...config,
+      description
+    })
+
     await this.readyToStart("Break")
 
     while(this.breakTime > -1) {
@@ -42,13 +49,6 @@ class GoCommand extends Command {
 
     await this.alarm()
     console.clear()
-
-    await this.confirmStorageExists()
-
-    await this.storeData({
-      ...config,
-      description
-    })
     
     this.log("Noice.")
 
@@ -78,11 +78,9 @@ class GoCommand extends Command {
 
   async alarm() {
     if(!this.silentMode) {
-      console.log(this.silentMode)
       
       await new Promise(res => {
-        var _sound = new Sound().play(this.rootLocation + '/sounds/mixkit-scanning-sci-fi-alarm-905.wav')
-        console.log(this.rootLocation)
+        var _sound = new Sound().play('src/sounds/mixkit-scanning-sci-fi-alarm-905.wav')
         setTimeout(function () {
           _sound.kill(); // pause the music after five seconds
           res()
