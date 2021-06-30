@@ -207,7 +207,7 @@ class GoCommand extends Command {
 
     try {
       await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), records)
-      this.log(chalk.green("CONGRADULATIONS YOU'V COMPLETED " + records[today].records.length + " POMODOROS TODAY"))
+      this.log(chalk.green("CONGRADULATIONS YOU'V COMPLETED " + records[today].records.length + " POMODOROS TODAY \n"))
     } catch (e) {
       this.error(e, {exit: true})
     }
