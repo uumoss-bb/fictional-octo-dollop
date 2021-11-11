@@ -1,7 +1,7 @@
 {
   "name": "fictional-octo-dollop",
   "description": "This is a. CLI that implements the pomodoro technique and tracks in on your local device.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Brodie L Balser",
   "bin": {
     "pomo": "./bin/run"

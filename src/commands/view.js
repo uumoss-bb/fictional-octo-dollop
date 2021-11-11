@@ -190,7 +190,7 @@ ViewCommand.flags = {
   isTesting: flags.boolean({
     char: 'isTesting',
     default: false,
-    hidden: false
+    hidden: true
   })
 }
 

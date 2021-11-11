@@ -29,25 +29,10 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`pomo break`](#pomo-break)
 * [`pomo configure`](#pomo-configure)
 * [`pomo go`](#pomo-go)
 * [`pomo help [COMMAND]`](#pomo-help-command)
 * [`pomo view`](#pomo-view)
-
-## `pomo break`
-
-The Go command starts your pomodoro and your break right after it.
-
-```
-USAGE
-  $ pomo break
-
-OPTIONS
-  -i, --isTesting
-```
-
-_See code: [src/commands/break.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/break.js)_
 
 ## `pomo configure`
 
@@ -56,9 +41,6 @@ The Config command will allow you to adjust your pomodoro timer.
 ```
 USAGE
   $ pomo configure
-
-OPTIONS
-  -i, --isTesting
 ```
 
 _See code: [src/commands/configure.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/configure.js)_
@@ -70,9 +52,6 @@ The Go command starts your pomodoro and your break right after it.
 ```
 USAGE
   $ pomo go
-
-OPTIONS
-  -i, --isTesting
 ```
 
 _See code: [src/commands/go.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/go.js)_
@@ -101,9 +80,6 @@ The View command allows you to view the saved records of your past pomodoro's.
 ```
 USAGE
   $ pomo view
-
-OPTIONS
-  -i, --isTesting
 ```
 
 _See code: [src/commands/view.js](https://github.com/websites/fictional-octo-dollop/blob/v0.0.1/src/commands/view.js)_
