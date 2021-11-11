@@ -11,21 +11,42 @@ class ConfigureCommand extends Command {
   async run() {
     console.clear()
 
+    this.setUp()
+
     this.handleFlags()
-
-    let data = await this.promptUser(this.config.configDir)
-
-    await this.confirmStorageExists(this.config.configDir)
-
-    await this.storeData(data)
     
-    this.log("Data saved, configuration complete.")
+    if(this.useDefault) {
+
+      await this.downloadSound()
+
+      await this.storeData({
+        pomodoro: 25, 
+        break: 5
+      })
+    } else {
+
+      let data = await this.promptUser(this.config.configDir)
+
+      await this.confirmStorageExists(this.config.configDir)
+  
+      await this.storeData(data)
+      
+      this.log("Data saved, configuration complete.")
+    }
 
     return
   }
 
+  setUp() {
+    let res = shell.pwd()
+    this.rootLocation = res.stdout.replace("\n", "")
+  }
+
   handleFlags() {
     const { flags } = this.parse(ConfigureCommand)
+
+    this.useDefault = flags.useDefault
+
     if(flags.isTesting) {
       this.filename = "config_test.json"
 
@@ -66,6 +87,13 @@ class ConfigureCommand extends Command {
       this.error(e, {exit: true})
     }
   }
+
+  async downloadSound() {
+    console.log(`${this.rootLocation}/src/sounds/mixkit-scanning-sci-fi-alarm-905.wav`)
+    await fs.copy(`${this.rootLocation}/src/sounds/mixkit-scanning-sci-fi-alarm-905.wav`, `${this.config.configDir}/mixkit-scanning-sci-fi-alarm-905.wav`)
+    .then(() => console.log('success!'))
+    .catch(err => console.error(err))
+  }
 }
 
 ConfigureCommand.description = `The Config command will allow you to adjust your pomodoro timer.
@@ -75,7 +103,12 @@ ConfigureCommand.flags = {
   isTesting: flags.boolean({
     char: 'isTesting',
     default: false,
-    hidden: false
+    hidden: true
+  }),
+  useDefault: flags.boolean({
+    char: 'useDefault',
+    default: false,
+    hidden: true
   })
 }
 

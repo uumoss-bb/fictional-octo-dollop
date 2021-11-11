@@ -53,6 +53,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "jest -i",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "postinstall": "pomo configure --useDefault"
   }
 }
