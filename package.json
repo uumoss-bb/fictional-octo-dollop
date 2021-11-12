@@ -1,12 +1,14 @@
 {
-  "name": "fictional-octo-dollop",
+  "name": "@londelo/pomo_go",
   "description": "This is a. CLI that implements the pomodoro technique and tracks in on your local device.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Brodie L Balser",
   "bin": {
-    "pomo": "./bin/run"
+    "pomo": "bin/run"
   },
-  "bugs": "https://github.com/websites/fictional-octo-dollop/issues",
+  "bugs": {
+    "url": "https://github.com/websites/fictional-octo-dollop/issues"
+  },
   "dependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
@@ -48,7 +50,10 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "websites/fictional-octo-dollop",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/websites/fictional-octo-dollop.git"
+  },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
