@@ -16,7 +16,7 @@ class ViewCommand extends Command {
     this.todaysDate = new Date
 
     this.handleFlags()
-    console.log(this.config.configDir)
+
     const records = await this.getRecords()
 
     if(records) {
