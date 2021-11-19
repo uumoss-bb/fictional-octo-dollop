@@ -21,13 +21,18 @@ class ViewCommand extends Command {
 
     if(records) {
       let userInfo = await this.promptUser(records)
-      console.log(userInfo)
+
       if(userInfo === "General Overview") {
         this.displayOverview(records)
       } else if(userInfo === "Todays OverView") {
         this.displayToday(records)
-      } else{
+      } else if(userInfo === "Descriptions of a day"){
         this.displayDescriptions(records, userInfo)
+      } else {
+        console.clear()
+        this.log(chalk.green("My Data Storage Locations"))
+        this.log("Data location: ", this.config.dataDir)
+        this.log("Config location: ", this.config.configDir)
       }
     }
     else {
@@ -39,6 +44,7 @@ class ViewCommand extends Command {
 
   handleFlags() {
     const { flags } = this.parse(ViewCommand)
+
     if(flags.isTesting) {
       this.configFile = "config_test.json"
       this.recordsFile = 'records_test.json'
@@ -160,7 +166,7 @@ class ViewCommand extends Command {
         type: 'list',
         name: 'selectedView',
         message: 'Id like to view: ',
-        choices: ["Todays OverView", "General Overview", "Descriptions of a day"],
+        choices: ["Todays OverView", "General Overview", "Descriptions of a day", "My Data Storage Locations"],
       }
     ])
 
