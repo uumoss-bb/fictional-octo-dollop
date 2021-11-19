@@ -89,7 +89,7 @@ class ConfigureCommand extends Command {
   }
 
   async downloadSound() {
-    await fs.copy(`${this.rootLocation}/src/sounds/mixkit-scanning-sci-fi-alarm-905.wav`, `${this.config.configDir}/mixkit-scanning-sci-fi-alarm-905.wav`)
+    await fs.copy(`${this.rootLocation}/@londelo/pomo_go/src/sounds/mixkit-scanning-sci-fi-alarm-905.wav`, `${this.config.configDir}/mixkit-scanning-sci-fi-alarm-905.wav`)
     .then(() => console.log('success!'))
     .catch(err => console.error(err))
   }
