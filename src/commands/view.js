@@ -33,6 +33,7 @@ class ViewCommand extends Command {
         this.log(chalk.green("My Data Storage Locations"))
         this.log("Data location: ", this.config.dataDir)
         this.log("Config location: ", this.config.configDir)
+        this.log("Root Location: ",process.mainModule.path.replace("/bin", "/"))
       }
     }
     else {
