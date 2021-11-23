@@ -78,11 +78,11 @@ class GoCommand extends Command {
     if(!this.silentMode) {
       
       await new Promise(res => {
-        var _sound = new Sound().play(`${this.config.configDir}/bell-ringing.mp3`)
+        var _sound = new Sound().play(`${this.config.configDir}/mixkit-scanning-sci-fi-alarm-905.wav`)
         setTimeout(function () {
           _sound.kill();
           res()
-        }, 3200);
+        }, 3000);
       })
     }
   }
