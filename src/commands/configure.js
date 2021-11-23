@@ -2,8 +2,7 @@ const { cli } = require("cli-ux"),
 { Command, flags } = require('@oclif/command'),
 fs = require("fs-extra"),
 path = require("path"),
-shell = require('shelljs'),
-chalk = require('chalk');
+shell = require('shelljs')
 
 class ConfigureCommand extends Command {
   filename = 'config.json'
@@ -87,7 +86,7 @@ class ConfigureCommand extends Command {
   }
 
   async downloadSound() {
-    await fs.copy(`${this.rootLocation}/src/sounds/mixkit-scanning-sci-fi-alarm-905.wav`, `${this.config.configDir}/mixkit-scanning-sci-fi-alarm-905.wav`)
+    await fs.copy(`${this.rootLocation}/src/sounds/bell-ringing.mp3`, `${this.config.configDir}/bell-ringing.mp3`)
     .then(() => console.log('success!'))
     .catch(err => console.error(err))
   }
