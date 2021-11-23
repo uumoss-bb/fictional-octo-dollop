@@ -38,8 +38,7 @@ class ConfigureCommand extends Command {
   }
 
   setUp() {
-    let res = shell.pwd()
-    this.rootLocation = res.stdout.replace("\n", "")
+    this.rootLocation = process.mainModule.path.replace("/bin", "/")
   }
 
   handleFlags() {

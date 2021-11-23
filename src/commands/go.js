@@ -56,8 +56,6 @@ class GoCommand extends Command {
   }
 
   setUp() {
-    let res = shell.pwd()
-    this.rootLocation = res.stdout.replace("\n", "")
     this.silentMode = false
     this.todaysDate = new Date
   }
