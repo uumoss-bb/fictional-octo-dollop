@@ -80,9 +80,9 @@ class GoCommand extends Command {
       await new Promise(res => {
         var _sound = new Sound().play(`${this.config.configDir}/bell-ringing.mp3`)
         setTimeout(function () {
-          _sound.kill(); // pause the music after five seconds
+          _sound.kill();
           res()
-        }, 3000);
+        }, 3100);
       })
     }
   }
@@ -205,7 +205,7 @@ class GoCommand extends Command {
 
     try {
       await fs.writeJSON(path.join(this.config.dataDir, this.recordsFile), records)
-      this.log(chalk.green("CONGRADULATIONS YOU'V COMPLETED " + records[today].records.length + " POMODOROS TODAY \n"))
+      this.log(chalk.green("CONGRADULATIONS YOU'VE COMPLETED " + records[today].records.length + " POMODOROS TODAY \n"))
     } catch (e) {
       this.error(e, {exit: true})
     }
