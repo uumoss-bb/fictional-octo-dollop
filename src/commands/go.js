@@ -82,7 +82,7 @@ class GoCommand extends Command {
         setTimeout(function () {
           _sound.kill();
           res()
-        }, 3100);
+        }, 3200);
       })
     }
   }
