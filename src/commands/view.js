@@ -9,7 +9,6 @@ class ViewCommand extends Command {
   configFile = 'config.json'
   recordsFile = 'records.json'
 
-
   async run() {    
     console.clear()
     
@@ -26,14 +25,15 @@ class ViewCommand extends Command {
         this.displayOverview(records)
       } else if(userInfo === "Todays OverView") {
         this.displayToday(records)
-      } else if(userInfo === "Descriptions of a day"){
-        this.displayDescriptions(records, userInfo)
-      } else {
+      } else if(userInfo === "My Data Storage Locations"){
         console.clear()
         this.log(chalk.green("My Data Storage Locations"))
         this.log("Data location: ", this.config.dataDir)
         this.log("Config location: ", this.config.configDir)
-        this.log("Root Location: ",process.mainModule.path.replace("/bin", "/"))
+        // this.log("Root Location: ",process.mainModule.path.replace("/bin", "/"))
+      } else {
+        console.clear()
+        this.displayDescriptions(records, userInfo)
       }
     }
     else {

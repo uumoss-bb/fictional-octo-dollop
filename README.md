@@ -17,13 +17,10 @@ This is a CLI that implements the pomodoro technique and tracks your data on you
 <!-- usage -->
 ```sh-session
 $ npm install -g @londelo/pomo_go
-
 $ pomo COMMAND
 running command...
-
 $ pomo (-v|--version|version)
-@londelo/pomo_go/0.1.6 darwin-x64 node-v12.16.3
-
+@londelo/pomo_go/0.1.7 darwin-x64 node-v12.16.3
 $ pomo --help [COMMAND]
 USAGE
   $ pomo COMMAND
@@ -46,6 +43,8 @@ USAGE
   $ pomo configure
 ```
 
+_See code: [src/commands/configure.js](https://github.com/uumoss-bb/fictional-octo-dollop/blob/v0.1.7/src/commands/configure.js)_
+
 ## `pomo go`
 
 The Go command starts your pomodoro and your break right after it.
@@ -54,6 +53,8 @@ The Go command starts your pomodoro and your break right after it.
 USAGE
   $ pomo go
 ```
+
+_See code: [src/commands/go.js](https://github.com/uumoss-bb/fictional-octo-dollop/blob/v0.1.7/src/commands/go.js)_
 
 ## `pomo help [COMMAND]`
 
@@ -70,6 +71,8 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
 ## `pomo view`
 
 The View command allows you to view the saved records of your past pomodoro's.
@@ -79,4 +82,5 @@ USAGE
   $ pomo view
 ```
 
+_See code: [src/commands/view.js](https://github.com/uumoss-bb/fictional-octo-dollop/blob/v0.1.7/src/commands/view.js)_
 <!-- commandsstop -->

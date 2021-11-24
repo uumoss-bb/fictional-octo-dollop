@@ -11,8 +11,6 @@ class GoCommand extends Command {
   recordsFile = 'records.json'
   pomoTime = 0
   breakTime = 0
-
-  // /System/Library/Sounds/
   
   async run() {
     console.clear()
